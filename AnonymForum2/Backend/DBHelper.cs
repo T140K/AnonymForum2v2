@@ -13,9 +13,17 @@ namespace AnonymForum2.Backend
 
         public async Task<List<Topic>> GetAllTopics()
         {
-            var topicsz = await _context.Topics.ToListAsync();
+            var topics = await _context.Topics.ToListAsync();
 
-            return topicsz;
+            return topics;
+        }
+
+        public async Task<List<Post>> GetPostsByTopicId(int id)
+        {
+            var postsById = await _context.Posts
+                .Where(p => p.Id == id).ToListAsync();
+            return postsById;
+
         }
     }
 }

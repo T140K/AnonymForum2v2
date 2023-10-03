@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model List<AnonymForum2.Models.ViewModel.PostDetailViewModel>
+
+@foreach (var post in Model)
+{
+    <div style="max-width:600px; margin:0 auto;">
+        <div style="justify-content:space-between; font-weight:bold;
+display:flex;">
+            @post.Title @post.PostTime
+        </div>
+        <div>
+            @post.Contents
+        </div>
+        <div style="justify-content:space-between">
+            <a href="/Home/Thread/@post.Id">View Thread</a>
+            <a href="/Home/Reply/@post.Id">Reply</a>
+        </div>
+    </div>    
 }

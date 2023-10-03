@@ -34,9 +34,22 @@ namespace AnonymForum2.Controllers
         {
             return View();
         }
-        public IActionResult Post()
+        public async Task<IActionResult> Post(int id)
         {
-            return View();
+
+            var dbHelper = new DBHelper(_context);
+            var postModel = await dbHelper.GetPostsByTopicId(id);
+
+            var postViewModel = postModel.Select(post => new  PostDetailViewModel
+            {
+                Id=post.Id,
+                Title = post.Title,
+                Contents = post.Contents,
+                PostTime = post.PostTime,
+                FKTopicId = post.FKTopicId
+
+            }).ToList();
+            return View(postViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
