@@ -1,4 +1,6 @@
-﻿
+﻿using AnonymForum2.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace AnonymForum2.Backend
 {
     public class DBHelper
@@ -7,6 +9,13 @@ namespace AnonymForum2.Backend
         public DBHelper(AnonymForumContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<Topic>> GetAllTopics()
+        {
+            var topicsz = await _context.Topics.ToListAsync();
+
+            return topicsz;
         }
     }
 }

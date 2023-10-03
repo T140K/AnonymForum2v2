@@ -1,24 +1,40 @@
 ﻿using AnonymForum2.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using AnonymForum2.Models.ViewModel;
+using AnonymForum2.Backend;
 
 namespace AnonymForum2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly AnonymForumContext _context;
+        public HomeController(ILogger<HomeController> logger, AnonymForumContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var dbHelper = new DBHelper(_context);
+            var topicModel = await dbHelper.GetAllTopics();
+
+            var topicViewModels = topicModel.Select(topic => new TopicDetailViewModel
+            {
+                Id = topic.Id,
+                Name = topic.Name
+            }).ToList();
+
+            return View(topicViewModels);
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Post()
         {
             return View();
         }

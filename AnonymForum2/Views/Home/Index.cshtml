@@ -1,8 +1,18 @@
-﻿@{
+﻿@model List<AnonymForum2.Models.ViewModel.TopicDetailViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Välkomna till forumet!</h1>
+<h3>Välj nåt att diskutera om:</h3>
+
+<ul>
+@foreach (var topic in Model) 
+{
+    <li>
+        <a
+           href="/Home/Post/@topic.Id"
+        >@topic.Name</a> 
+    </li>
+}
+</ul>

@@ -12,6 +12,8 @@ namespace AnonymForum2
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<DBHelper>();
+
             builder.Services.AddDbContext<AnonymForumContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("AnonymForumContext")));
 
