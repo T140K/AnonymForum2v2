@@ -1,23 +1,17 @@
-﻿@model PostCreateViewModel
-
+﻿@model ReplyCreateViewModel
 @{
     int id = int.Parse(ViewContext.RouteData.Values["id"].ToString());
 }
 
-<a href="/Home/Post/@id">Tillbaka</a>
+<a href="/Home/Thread/@id">Tillbaka</a>
 
 @using (Html.BeginForm(FormMethod.Post))
 {
-    <div>
-        @Html.LabelFor(p => p.Title)
-        @Html.EditorFor(p => p.Title)
-        @Html.ValidationMessageFor(p => p.Title)
-    </div>
     <div>
         @Html.LabelFor(p => p.Contents)
         @Html.EditorFor(p => p.Contents)
         @Html.ValidationMessageFor(p => p.Contents)
     </div>
-    
+
     <input type="submit" value="send" class="btn btn-default" />
 }

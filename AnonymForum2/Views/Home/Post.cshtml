@@ -1,5 +1,7 @@
 ﻿@model AnonymForum2.Models.ViewModel.PostMoreDetailViewModel
-
+<div>
+    <a href="/Home/Index/">Tillbaka</a>
+</div>
 
 <a href="/Home/CreatePost/@Model.sentId">
     Skapa ny diskussion
@@ -17,8 +19,8 @@
             <p>@post.Contents</p>
         </div>
         <div style="justify-content:space-between; display:flex;">
-            <a href="/Home/Thread/@post.Id">View Thread</a>
-            <a href="/Home/Reply/@post.Id">Reply</a>
+            <a href="/Home/Thread/@post.Id">Se Tråden</a>
+            <a href="/Home/CreateReply/@post.Id">Svara</a>
         </div>
     </div>
 }

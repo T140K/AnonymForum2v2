@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGVQb3N0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/VS-Projects/AnonymForum2/AnonymForum2/Views/Home/CreateReply.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGVSZXBseS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/VS-Projects/AnonymForum2/AnonymForum2/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -30,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/VS-Projects/AnonymForum2/AnonymForum2/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/VS-Projects/AnonymForum2/AnonymForum2/Views/Home/Thread.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUaHJlYWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/VS-Projects/AnonymForum2/AnonymForum2/Views/Shared/Error.cshtml]

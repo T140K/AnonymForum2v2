@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using AnonymForum2.Models.ViewModel;
 using AnonymForum2.Backend;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
 namespace AnonymForum2.Controllers
 {
@@ -55,11 +56,12 @@ namespace AnonymForum2.Controllers
 
             return View(postViewModel);
         }
+        
         public IActionResult CreatePost()
         {
-
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> CreatePost(int id, PostCreateViewModel model)
         {
@@ -76,9 +78,60 @@ namespace AnonymForum2.Controllers
                 FKTopicId = id
             };
             var dbHelper = new DBHelper(_context);
-            var createdPost = await dbHelper.CreatePost(postModel);
+            await dbHelper.CreatePost(postModel);
 
-            return RedirectToAction($"Post",new { id = id});
+            return RedirectToAction($"Post", new { id = id});
+        }
+
+        public async Task<IActionResult> Thread(int id)
+        {
+            var dbHelper = new DBHelper(_context);
+            var replyModel = await dbHelper.GetRepliesByPostId(id);
+            var originalPost = await dbHelper.GetPostsById(id);
+
+            var replyViewModel = new ThreadMoreDetailViewModel
+            {
+                Replies = replyModel.Select(reply => new ThreadDetailViewModel
+                {
+                    Contents = reply.Contents,
+                    ReplyDate =reply.ReplyDate,
+                    FKPostId = reply.FKPostId
+                }
+            ).ToList(),
+                postId = id,
+                Post = originalPost.Select(post => new PostDetailViewModel()
+                {
+                    Title=post.Title,
+                    Contents = post.Contents,
+                    PostTime = post.PostTime,
+                    FKTopicId = post.FKTopicId
+
+                }).ToList(),
+            };
+            return View(replyViewModel);
+        }
+        public IActionResult CreateReply()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateReply(int id, ReplyCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            };
+
+            var replyModel = new Reply
+            {
+                Contents = model.Contents,
+                ReplyDate = DateTime.Now,
+                FKPostId = id
+            };
+            var dbHelper = new DBHelper(_context);
+            await dbHelper.CreateReply(replyModel);
+
+            return RedirectToAction($"Thread", new { id = id });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

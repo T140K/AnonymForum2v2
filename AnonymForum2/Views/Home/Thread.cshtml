@@ -1,0 +1,28 @@
+﻿@model ThreadMoreDetailViewModel
+
+<a href="/Home/Post/@Model.Post[0].FKTopicId">Tillbaka</a>
+
+<div style="width:60%; border: solid 2px black; margin:auto; margin-bottom:8px; padding:6px;">
+    <div style="justify-content:space-between; display:flex;">
+        <p style="font-weight:bold;">@Model.Post[0].Title</p>
+        <p style="font-weight:bold;">@Model.Post[0].PostTime</p>
+    </div>
+    <div>
+        <p>@Model.Post[0].Contents</p>
+    </div>
+    <div>
+        <a href="/Home/CreateReply/@Model.postId">Reply</a>
+    </div>
+</div>
+
+@foreach (var reply in Model.Replies)
+{
+    <div style="max-width:50%; padding:3px; margin:0 auto; border: solid 1px grey; margin-bottom: 8px;">
+        <div style="justify-content:space-between; font-weight:bold; display:flex;">
+            <p>@reply.ReplyDate</p>
+        </div>
+        <div>
+            <p>@reply.Contents</p>
+        </div>
+    </div>
+}
