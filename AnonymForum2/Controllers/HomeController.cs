@@ -40,16 +40,45 @@ namespace AnonymForum2.Controllers
             var dbHelper = new DBHelper(_context);
             var postModel = await dbHelper.GetPostsByTopicId(id);
 
-            var postViewModel = postModel.Select(post => new  PostDetailViewModel
+            var postViewModel = new PostMoreDetailViewModel
             {
-                Id=post.Id,
-                Title = post.Title,
-                Contents = post.Contents,
-                PostTime = post.PostTime,
-                FKTopicId = post.FKTopicId
+                Posts = postModel.Select(post => new PostDetailViewModel
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Contents = post.Contents,
+                    PostTime = post.PostTime,
+                    FKTopicId = post.FKTopicId
+                }).ToList(),
+                sentId = id
+            };
 
-            }).ToList();
             return View(postViewModel);
+        }
+        public IActionResult CreatePost()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreatePost(int id, PostCreateViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            };
+
+            var postModel = new Post
+            {
+                Title = model.Title,
+                Contents = model.Contents,
+                PostTime = DateTime.Now,
+                FKTopicId = id
+            };
+            var dbHelper = new DBHelper(_context);
+            var createdPost = await dbHelper.CreatePost(postModel);
+
+            return RedirectToAction($"Post",new { id = id});
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

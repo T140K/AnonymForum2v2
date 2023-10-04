@@ -1,4 +1,5 @@
 ﻿using AnonymForum2.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnonymForum2.Backend
@@ -21,9 +22,18 @@ namespace AnonymForum2.Backend
         public async Task<List<Post>> GetPostsByTopicId(int id)
         {
             var postsById = await _context.Posts
-                .Where(p => p.Id == id).ToListAsync();
+                .Where(p => p.FKTopicId == id).ToListAsync();
             return postsById;
+        }
 
+        public async Task<Post> CreatePost(Post post)
+        {
+            post.PostTime = DateTime.Now;
+
+            _context.Posts.Add(post);
+            await _context.SaveChangesAsync();
+
+            return post;
         }
     }
 }
